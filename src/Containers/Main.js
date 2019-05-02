@@ -3,6 +3,7 @@ import "./Main.css";
 import Rectangle from '../Components/Rectangle/Rectangle';
 import RectPointRating from '../Components/PointRectangle/Rect-Point-Rating';
 import Star from "../Components/Star/Star";
+import HalfRating from "../Components/HalfRating/HalfRating";
 
 class Main extends Component{
     state = {
@@ -12,7 +13,22 @@ class Main extends Component{
         decimalRectCurr:3.3,
 
         starDesired:2,
-        starDefault:0
+        starDefault:0,
+
+        halfSelected:3,
+        halfDefault:0
+    }
+
+    getSelectedVal = (s) => {
+       this.setState({
+           halfSelected:s
+       })
+      }
+
+    getDefaultVal = (s) => {
+        this.setState({
+            halfDefault:s
+        })
     }
 
     changeRectDesired = (val) => {
@@ -46,6 +62,11 @@ class Main extends Component{
     }
 
     render(){
+        let styles = {
+            borderColor:"skyblue",
+            borderStyle:"dotted",
+            borderSize:3
+          }
         //console.log("Render");
         return (<div>
             <h4 className="maintitle">Rating Components</h4>
@@ -96,7 +117,26 @@ class Main extends Component{
                     <h5>User Rated <span>{this.state.decimalRectCurr} / {this.state.decimalRectMax}</span></h5>
 
                 </div>
-            </div>        
+            </div>       
+  
+
+            <div className="boxDiv">
+                <p>Half Rating</p>
+                <div className="itemDiv">
+                    <p>Star with Selected Values</p>
+                    <HalfRating 
+                        maxRating={5} currentRating={3}
+                        updateRating={this.getSelectedVal}
+                        size={50} selectedColor="brown" emptyColor="#ccc" margin={10} 
+                        border={styles}/>
+                    <h5>User Rated <span>{this.state.halfSelected} / 5</span></h5>
+                </div>
+                <div className="itemDiv">
+                    <p>Star with Default Values</p>
+                    <HalfRating updateRating={this.getDefaultVal}/>
+                    <h5>User Rated <span>{this.state.halfDefault} / 5</span></h5>
+                </div>
+            </div>  
            
 
             
